@@ -24,7 +24,7 @@ def main(*args):
                              json={
                                  'data': {
                                      'value': value,
-                                     'date': datetime.now().isoformat(timespec='seconds')
+                                     'timestamp': datetime.now().isoformat(timespec='seconds')
                                  }
                              })
                 res.raise_for_status()
