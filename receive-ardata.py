@@ -13,6 +13,7 @@ def main(*args):
     parser.add_argument('-b', '--baudrate', type=int, default=9600)
     parser.add_argument('-p', '--port', required=True)
     parser.add_argument('-u', '--data-url', required=True)
+    parser.add_argument('-t', '--token', required=True)
     argv = parser.parse_args(sys.argv[1:] or args)
 
     with serial.Serial(port=argv.port, baudrate=argv.baudrate, timeout=10) as ser:
@@ -21,6 +22,7 @@ def main(*args):
                 value = ser.readline().decode()
                 print(datetime.now().isoformat(timespec='seconds'), value)
                 res = s.post(argv.data_url,
+                             headers={'Authorization': f'CrapToken {argv.token}'},
                              json={
                                  'data': {
                                      'value': value,
